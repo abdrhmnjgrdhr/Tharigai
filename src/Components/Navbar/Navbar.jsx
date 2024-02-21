@@ -6,35 +6,40 @@ import Profile from "./Profile";
 import Cart from "./Cart";
 import { IoMdClose } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
+import list from "./list";
 function Navbar() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
+  const { pathname } = useLocation();
   return (
-    <div>
+    <div className="shadow shadow-green-200 pb-4">
       <div className="flex pt-4  justify-between px-4 lg:px-0 items-center lg:justify-evenly">
         <div>
           <img
             src="https://yosuva4.github.io/ThaaragaiHtml/assets/images/logo/freshcart-logo.svg"
             alt=""
-            className="w-[120px] lg:w-[150px] object-cover"
+            className=" object-cover"
           />
         </div>
         <div className="hidden lg:block">
           <ul className="flex gap-6">
-            <li className="text-[#2e2e2e]  cursor-pointer font-semibold">
-              Home
-            </li>
-            <li className="text-[#2e2e2e]  cursor-pointer font-semibold">
-              All Products
-            </li>
-            <li className="text-[#2e2e2e]  cursor-pointer font-semibold">
-              Blogs
-            </li>
-            <li className="text-[#2e2e2e]  cursor-pointer font-semibold">
-              Dasboard
-            </li>
+            {list.map((items, index) => {
+              return (
+                <li
+                  key={index}
+                  className={
+                    pathname === items.path
+                      ? "text-green-400  cursor-pointer font-semibold"
+                      : "text-[#2e2e2e]  cursor-pointer font-semibold"
+                  }
+                >
+                  <Link to={items.path}>{items.label}</Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className="lg:flex gap-4 hidden ">
@@ -109,18 +114,20 @@ function Navbar() {
           </div>
           <div className="">
             <ul className="flex flex-col items-center justify-center  gap-6">
-              <li className="text-[#2e2e2e]  cursor-pointer font-semibold">
-                Home
-              </li>
-              <li className="text-[#2e2e2e]  cursor-pointer font-semibold">
-                All Products
-              </li>
-              <li className="text-[#2e2e2e]  cursor-pointer font-semibold">
-                Blogs
-              </li>
-              <li className="text-[#2e2e2e]  cursor-pointer font-semibold">
-                Dasboard
-              </li>
+              {list.map((items, index) => {
+                return (
+                  <li
+                    key={index}
+                    className={
+                      pathname === items.path
+                        ? "text-green-400  cursor-pointer font-semibold"
+                        : "text-[#2e2e2e]  cursor-pointer font-semibold"
+                    }
+                  >
+                    <Link to={items.path}>{items.label}</Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
